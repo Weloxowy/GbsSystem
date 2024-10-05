@@ -1,0 +1,49 @@
+.background {
+    width: 33.3vw;
+    height: 100vh;
+    position: fixed; /* Pozostaje na miejscu podczas scrollowania */
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0; /* Tło znajduje się za innymi elementami */
+}
+
+.top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    position: relative; /* Pozycjonowanie w stosunku do rodzica */
+    z-index: 2; /* Obraz nad tłem */
+}
+
+.mid_top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 10vh;
+    position: relative;
+    z-index: 2; /* Utrzymanie nad tłem */
+}
+
+.mid_down {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 30vh;
+    position: relative;
+    z-index: 2; /* Utrzymanie nad tłem */
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 10vh;
+    position: relative;
+    z-index: 2; /* Przycisk na górze, nad tłem */
+}
