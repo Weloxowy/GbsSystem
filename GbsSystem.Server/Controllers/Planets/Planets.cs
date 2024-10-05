@@ -9,7 +9,7 @@ namespace GbsSystem.Server.Controllers.Planets;
 public class Planets : ControllerBase
 {
     [HttpGet]
-    public ActionResult<IEnumerable<Models.AspNetUsers.AspNetUsersDto>> GetAll()
+    public ActionResult<IEnumerable<Models.Planets.Planets>> GetAll()
     {
         using (var session = NHibernateHelper.OpenSession())
         {

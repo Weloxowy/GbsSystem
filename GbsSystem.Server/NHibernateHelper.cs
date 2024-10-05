@@ -27,7 +27,7 @@ public class NHibernateHelper
                 _sessionFactory = Fluently.Configure()
                     .Database(
                         MsSqlConfiguration.MsSql2012.ConnectionString(
-                            "Server=localhost\\SQLEXPRESS;Database=Hackaton;Integrated Security=SSPI;Application Name=Hackaton;TrustServerCertificate=true;")
+                            "Server=localhost\\TEW_SQLEXPRESS;Database=Hackaton;Integrated Security=SSPI;Application Name=Hackaton;TrustServerCertificate=true;")
                     ) 
                     .Mappings(m =>
                          m.FluentMappings.AddFromAssemblyOf<AspNetUsers>()
