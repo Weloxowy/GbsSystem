@@ -1,0 +1,51 @@
+/* MainPage.module.css */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Obraz zajmuje cały ekran */
+    background-size: cover; /* Obraz dopasowany do ekranu */
+    background-position: center; /* Centrowanie obrazu */
+    z-index: -1; /* Ustawione za treścią */
+}
+
+.pageContent {
+    position: relative;
+    z-index: 1; /* Zawartość nad obrazem */
+    height: 75vh; /* Zawartość wycentrowana na ekranie */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.scrollableContent {
+    position: relative;
+    z-index: 1; /* Treść nad obrazem tła */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Zaczynamy od góry */
+    align-items: center; /* Wyśrodkowanie poziome */
+    color: white;
+    min-height: 100vh; /* Przewijalna treść wypełnia cały ekran */
+    text-align: center; /* Wyśrodkowanie tekstu */
+    margin-top: 10vh; /* Margines dla estetyki, by nie zaczynać tuż pod obrazem */
+}
+
+.scrollableContent p {
+    max-width: 800px; /* Opcjonalnie - ustal maksymalną szerokość, aby tekst był czytelniejszy */
+    font-size: 1.2rem; /* Możesz dostosować wielkość czcionki */
+    line-height: 1.5; /* Zwiększenie odstępów między wierszami */
+}
+
+scrollableContent h2 {
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.lottie {
+    margin: 2rem auto; /* Wyśrodkowanie animacji */
+}
