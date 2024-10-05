@@ -1,0 +1,48 @@
+<<<<<<< HEAD
+import '@mantine/core/styles.css';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
+import Root from "./routes/root";
+import ErrorPage from "./error-page.tsx";
+import {MantineProvider} from "@mantine/core";
+import LoginPage from "./routes/LoginPage/LoginPage.tsx";
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Root />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/login",
+        element: <LoginPage />,
+        errorElement: <ErrorPage />,
+    },
+]);
+
+
+
+createRoot(document.getElementById('root')!).render(
+    <MantineProvider defaultColorScheme={"auto"}>
+  <StrictMode>
+      <RouterProvider router={router} />
+  </StrictMode>
+    </MantineProvider>,
+)
+=======
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.tsx'
+
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+>>>>>>> 00a1a7217d89682d3e8c3e9a55754850d82a0789
