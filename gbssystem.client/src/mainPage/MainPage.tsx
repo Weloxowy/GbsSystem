@@ -20,6 +20,13 @@ export default function MainPage() {
       >
         REJESTRACJA
       </Button>
+      <Button
+        onClick={async () => {
+          navigation("/Planets");
+        }}
+      >
+        Planets
+      </Button>
     </>
   );
 }
