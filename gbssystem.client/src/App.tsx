@@ -7,6 +7,7 @@ import {  MantineProvider } from '@mantine/core';
 import LoginPage from "./routes/LoginPage/LoginPage.tsx";
 import '@mantine/core/styles.css';
 import {theme} from "./theme.tsx";
+import NavBarMenu from "./NavBarMenu/NavBarMenu.tsx";
 
 export default function App() {
 
@@ -23,6 +24,9 @@ export default function App() {
           <Route path="/register" element={<Register />}>
             {" "}
           </Route>
+            <Route path="/navBarMenu" element={<NavBarMenu />}>
+                {" "}
+            </Route>
         </Routes>
       </BrowserRouter>
       </MantineProvider>
