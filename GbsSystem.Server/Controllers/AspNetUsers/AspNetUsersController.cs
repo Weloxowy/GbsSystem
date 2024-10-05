@@ -95,17 +95,175 @@ public class AspNetUsersController : ControllerBase
         Models.AspNetUsers.AspNetUsers final = await GetUserInfo();
         var emailSubject = "Witaj w RentIt!";
         var emailBody = $@"
-                        <html>
-                        <body style='font-family: Arial, sans-serif; text-align: center; color: #333;'>
-                            <div style='max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;'>
-                                <h2 style='color: #4CAF50;'>Witaj w RentIt {final.FirstName},</h2>
-                                <p>Pomyślnie zarejestrowałeś się w serwisie RentIt.:</p>
-                                <p style='margin-top: 30px;'>Twoim następnym krokiem jest znalezienie nowych współlokatorów, z którymi mamy nadzieję spędzisz niezapomniane momenty.</p>
-                                <p style='margin-top: 30px;'>Życzymy ci wszystkiego dobrego. Zespół RentIt!</p>
-                                <p style='margin-top: 30px; font-size: 12px; color: #999;'>© 2024 RentIt. All rights reserved.</p>
-                            </div>
-                        </body>
-                        </html>";
+                        <!DOCTYPE html>
+<html lang=""pl"">
+  <head>
+    <meta charset=""UTF-8"" />
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"" />
+    <title>Certyfikat</title>
+    <style>
+      body {{
+        font-family: ""Arial"", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+        position: relative;
+      }}
+
+      .certificate-container {{
+        background-color: white !important;
+        padding: 40px;
+        padding-top: 95px; /* Adjust for the arrow space */
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        width: 800px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }}
+
+      /* Top arrow shape */
+      .top-arrow {{
+        width: 0;
+        height: 0;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-bottom: 50px solid #003366;
+        position: absolute;
+        top: 37px;
+        left: 50%;
+
+        transform: translateX(-50%) rotate(180deg);
+        z-index: 2;
+      }}
+
+      .certificate-header {{
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 20px;
+        background-color: #003366;
+        display: inline-block;
+        padding: 10px 40px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }}
+
+      .certificate-title {{
+        font-size: 24px;
+        font-weight: bold;
+        color: #003366;
+        margin: 10px 0;
+      }}
+
+      .certificate-body {{
+        font-size: 20px;
+        color: #333;
+      }}
+
+      .certificate-name {{
+        font-size: 36px;
+        font-weight: bold;
+        color: #003366;
+        margin: 20px 0;
+      }}
+
+      .certificate-footer {{
+        font-size: 18px;
+        font-weight: bold;
+        color: #003366;
+      }}
+
+      .signature {{
+        margin-top: 20px;
+        font-family: ""Brush Script MT"", cursive;
+        font-size: 40px;
+        color: #333;
+        margin-bottom: 50px;
+      }}
+
+      /* Left and right blue bars */
+
+      .certificate-container::before {{
+        content: """";
+        position: absolute;
+        width: 20px;
+        height: 180px;
+        background-color: #003366;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: -1; /* Place behind the certificate */
+        left: 0;
+      }}
+
+      .certificate-container::after {{
+        content: """";
+        position: absolute;
+        width: 20px;
+        height: 180px;
+        background-color: #003366;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: -1; /* Place behind the certificate */
+        right: 0;
+      }}
+
+      /* Side Text */
+      .side-text {{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }}
+
+      .side-text-right {{
+        right: 30px;
+      }}
+
+      .side-text-left {{
+        left: 30px;
+      }}
+      .label-signature {{
+        font-family: ""Arial"", sans-serif;
+        font-size: 20px;
+      }}
+    </style>
+  </head>
+  <body>
+    <div class=""certificate-container"">
+      <div class=""certificate-header"">GBS & Partners</div>
+
+      <div class=""certificate-title"">Certyfikat</div>
+      <div class=""certificate-body"">Niniejszy dokument poświadcza, że</div>
+
+      <div class=""certificate-name"">{final.FirstName + " " + final.Lastname}</div>
+
+      <div class=""certificate-body"">
+        przezwyciężył wszystkie astrofizyczne wyzwania i zdobył tytuł
+        Kosmicznego Mistrza Wiedzy
+      </div>
+
+      <div class=""signature"">
+        <span class=""label-signature"">Podpisano:</span> <br />GBS Company
+      </div>
+
+      <div class=""certificate-footer"">GBS Company | NASA & Partners</div>
+      <!-- Left and Right Side Text -->
+      
+    </div>
+  </body>
+</html>
+";
         try
         {
             await _emailService.SendEmailAsync(final.Email, emailSubject, emailBody);
@@ -116,6 +274,200 @@ public class AspNetUsersController : ControllerBase
             throw new Exception("Can't send email. Email service is unavaible. Please contanct with support.");
         }
     }
+    
+    [HttpPost("sendEmailPDF")]
+    public async Task<bool> sendEmailPDF()
+    {
+        Models.AspNetUsers.AspNetUsers final = await GetUserInfo();
+        var emailSubject = "Witaj w RentIt!";
+        var emailBody = $@"
+                        <!DOCTYPE html>
+<html lang=""pl"">
+  <head>
+    <meta charset=""UTF-8"" />
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"" />
+    <title>Certyfikat</title>
+    <style>
+      body {{
+        font-family: ""Arial"", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+        position: relative;
+      }}
+
+      .certificate-container {{
+        background-color: white !important;
+        padding: 40px;
+        padding-top: 95px; /* Adjust for the arrow space */
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        width: 800px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }}
+
+      /* Top arrow shape */
+      .top-arrow {{
+        width: 0;
+        height: 0;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-bottom: 50px solid #003366;
+        position: absolute;
+        top: 37px;
+        left: 50%;
+
+        transform: translateX(-50%) rotate(180deg);
+        z-index: 2;
+      }}
+
+      .certificate-header {{
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 20px;
+        background-color: #003366;
+        display: inline-block;
+        padding: 10px 40px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }}
+
+      .certificate-title {{
+        font-size: 24px;
+        font-weight: bold;
+        color: #003366;
+        margin: 10px 0;
+      }}
+
+      .certificate-body {{
+        font-size: 20px;
+        color: #333;
+      }}
+
+      .certificate-name {{
+        font-size: 36px;
+        font-weight: bold;
+        color: #003366;
+        margin: 20px 0;
+      }}
+
+      .certificate-footer {{
+        font-size: 18px;
+        font-weight: bold;
+        color: #003366;
+      }}
+
+      .signature {{
+        margin-top: 20px;
+        font-family: ""Brush Script MT"", cursive;
+        font-size: 40px;
+        color: #333;
+        margin-bottom: 50px;
+      }}
+
+      /* Left and right blue bars */
+
+      .certificate-container::before {{
+        content: """";
+        position: absolute;
+        width: 20px;
+        height: 180px;
+        background-color: #003366;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: -1; /* Place behind the certificate */
+        left: 0;
+      }}
+
+      .certificate-container::after {{
+        content: """";
+        position: absolute;
+        width: 20px;
+        height: 180px;
+        background-color: #003366;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: -1; /* Place behind the certificate */
+        right: 0;
+      }}
+
+      /* Side Text */
+      .side-text {{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }}
+
+      .side-text-right {{
+        right: 30px;
+      }}
+
+      .side-text-left {{
+        left: 30px;
+      }}
+      .label-signature {{
+        font-family: ""Arial"", sans-serif;
+        font-size: 20px;
+      }}
+    </style>
+  </head>
+  <body>
+    <div class=""certificate-container"">
+      <div class=""certificate-header"">GBS & Partners</div>
+
+      <div class=""certificate-title"">Certyfikat</div>
+      <div class=""certificate-body"">Niniejszy dokument poświadcza, że</div>
+
+      <div class=""certificate-name"">{final.FirstName + " " + final.Lastname}</div>
+
+      <div class=""certificate-body"">
+        przezwyciężył wszystkie astrofizyczne wyzwania i zdobył tytuł
+        Kosmicznego Mistrza Wiedzy
+      </div>
+
+      <div class=""signature"">
+        <span class=""label-signature"">Podpisano:</span> <br />GBS Company
+      </div>
+
+      <div class=""certificate-footer"">GBS Company | NASA & Partners</div>
+      <!-- Left and Right Side Text -->
+      
+    </div>
+  </body>
+</html>
+";
+        var renderer = new IronPdf.HtmlToPdf();
+        var pdfDocument = renderer.RenderHtmlAsPdf(emailBody);
+
+        // Save PDF to byte array for attachment
+        var pdfBytes = pdfDocument.BinaryData;
+
+        try
+        {
+          // Send email with PDF attachment
+          await _emailService.SendEmailWithAttachmentAsync(final.Email, emailSubject, emailBody, pdfBytes, "certificate.pdf");
+          return true;
+        }
+        catch
+        {
+          throw new Exception("Can't send email. Email service is unavailable. Please contact support.");
+        }
+    }
+    
        [HttpPost("registerCustom")]
         public ActionResult<Models.AspNetUsers.AspNetUsersDto> Register([FromBody] AspNetUsersRegisterDto dto)
         {

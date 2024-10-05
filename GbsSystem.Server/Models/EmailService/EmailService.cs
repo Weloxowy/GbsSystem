@@ -36,4 +36,26 @@ public class EmailService
             await client.DisconnectAsync(true);
         }
     }
+    public async Task SendEmailWithAttachmentAsync(string recipient, string subject, string body, byte[] attachment, string attachmentName)
+    {
+        var message = new MimeMessage();
+        message.From.Add(new MailboxAddress("RentIt", _fromEmail));
+        message.To.Add(new MailboxAddress("",recipient));
+        message.Subject = subject;
+
+        var bodyBuilder = new BodyBuilder { HtmlBody = body };
+
+        // Add PDF attachment
+        bodyBuilder.Attachments.Add(attachmentName, attachment, new ContentType("application", "pdf"));
+
+        message.Body = bodyBuilder.ToMessageBody();
+
+        using (var client = new SmtpClient())
+        {
+            await client.ConnectAsync(_smtpServer, _port, MailKit.Security.SecureSocketOptions.StartTls);
+            await client.AuthenticateAsync(_fromEmail, _password);
+            await client.SendAsync(message);
+            await client.DisconnectAsync(true);
+        }
+    }
 }
