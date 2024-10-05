@@ -4,9 +4,12 @@ import '@mantine/core/styles.css';
 import Register from "./login/Register";
 import MainPage from "./mainPage/MainPage";
 import {  MantineProvider } from '@mantine/core';
+<<<<<<< HEAD
 import LoginPage from "./routes/LoginPage/LoginPage.tsx";
-import '@mantine/core/styles.css';
+=======
 import {theme} from "./theme.tsx";
+import '@mantine/core/styles.css';
+>>>>>>> c02c8a10ec123db57e9b471bd4123fad89c52bfb
 
 export default function App() {
 
