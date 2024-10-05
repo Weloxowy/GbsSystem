@@ -1,5 +1,21 @@
 using System.Reflection;
 using FluentMigrator.Runner;
+using GbsSystem.Server.Models.AspNetUsers;
+using System;
+using System.Reflection;
+using System.Security.Claims;
+using FluentAssertions.Common;
+using FluentMigrator.Runner;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +46,12 @@ builder.Services.AddFluentMigratorCore() // Move FluentMigrator registration her
             .ScanIn(Assembly.GetExecutingAssembly()).For.All();
     })
     .AddLogging(config => config.AddFluentMigratorConsole());
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(
+        "Server=localhost\\SQLEXPRESS;Database=Hackaton;Integrated Security=SSPI;Application Name=Hackaton; TrustServerCertificate=true;"));
+
+builder.Services.AddIdentityApiEndpoints<AspNetUsers>()
+    .AddEntityFrameworkStores<DataContext>();
 
 var app = builder.Build();
 
@@ -59,6 +81,8 @@ app.UseCors("AllowAllOrigins");
 
 app.UseHttpsRedirection();
 
+app.MapIdentityApi<AspNetUsers>();
+
 app.UseAuthorization();
 
 app.MapControllers();
@@ -66,3 +90,8 @@ app.MapControllers();
 app.MapFallbackToFile("/index.html");
 
 app.Run();
+
+class DataContext : IdentityDbContext<AspNetUsers>
+{
+    public DataContext(DbContextOptions<DataContext> options) : base(options){}
+}
