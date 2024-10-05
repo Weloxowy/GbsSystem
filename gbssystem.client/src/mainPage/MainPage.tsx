@@ -4,7 +4,10 @@ import classes from "./MainPage.module.css";
 import backgroundImage from "../assets/Zdj_hackaton_1.jpeg";
 import Lottie from 'react-lottie';
 import animation from '../assets/scroll.json'
-import AddToCalendar from "../components/AddToCalendar/AddToCalendar.tsx";
+import AddToCalendarOutlook from "../components/AddToCalendar/AddToCalendarOutlook.tsx";
+import AddToCalendarIcs from "../components/AddToCalendar/AddToCalendarIcs.tsx";
+import AddToCalendarGoogle from "../components/AddToCalendar/AddToCalendarGoogle.tsx";
+import React from "react";
 export default function MainPage() {
     const navigation = useNavigate();
 
@@ -61,7 +64,9 @@ export default function MainPage() {
                     Featuring high-resolution imagery from renowned space agencies, live updates on celestial events, and an interactive 3D model of the solar system, our app lets you navigate the stars like never before.
                 Discover distant galaxies, zoom in on planets, track satellites in real time, and learn about space phenomena through detailed articles and educational content. With intuitive controls and regular updates, this app transforms your device into a powerful window to the universe. Start your cosmic journey today!
                 </Text>
-                <AddToCalendar date={new Date()} title={"Testowe wydarzenie"} />
+                <AddToCalendarOutlook date={new Date()} title={"Testowe wydarzenie"} />
+                <AddToCalendarIcs date={new Date()} title={"Testowe wydarzenie"} />
+                <AddToCalendarGoogle date={new Date()} title={"Testowe wydarzenie"} />
             </div>
         </div>
     );
