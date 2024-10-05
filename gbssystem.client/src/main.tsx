@@ -9,6 +9,7 @@ import {
 import Root from "./routes/root";
 import ErrorPage from "./error-page.tsx";
 import {MantineProvider} from "@mantine/core";
+import LoginPage from "./routes/LoginPage/LoginPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -16,7 +17,13 @@ const router = createBrowserRouter([
         element: <Root />,
         errorElement: <ErrorPage />,
     },
+    {
+        path: "/login",
+        element: <LoginPage />,
+        errorElement: <ErrorPage />,
+    },
 ]);
+
 
 
 createRoot(document.getElementById('root')!).render(
