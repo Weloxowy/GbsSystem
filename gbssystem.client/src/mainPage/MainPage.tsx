@@ -1,4 +1,4 @@
-import {Button, Text, Overlay, rem, Space, Title} from "@mantine/core";
+import {Button, Text, Overlay, rem, Space, Title, Modal} from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import classes from "./MainPage.module.css";
 import backgroundImage from "../assets/Zdj_hackaton_1.jpeg";
@@ -7,7 +7,8 @@ import animation from '../assets/scroll.json'
 import AddToCalendarOutlook from "../components/AddToCalendar/AddToCalendarOutlook.tsx";
 import AddToCalendarIcs from "../components/AddToCalendar/AddToCalendarIcs.tsx";
 import AddToCalendarGoogle from "../components/AddToCalendar/AddToCalendarGoogle.tsx";
-import React from "react";
+import {useState} from "react";
+import Quiz from "../quiz/Quiz.tsx";
 export default function MainPage() {
     const navigation = useNavigate();
 
@@ -19,8 +20,14 @@ export default function MainPage() {
             preserveAspectRatio: "xMidYMid slice"
         }
     };
+
+    const [opened,setOpened] = useState(false);
+
     return (
         <div>
+            <Modal opened={opened} onClose={()=>setOpened(false)} title={<Title order={4}>Quiz, poziom 2</Title>} size="70%">
+                <Quiz onClose={() => setOpened(false)} /> {/* Przekazujemy funkcję zamykającą */}
+            </Modal>
             {/* Tło na pełnym ekranie */}
             <div
                 className={classes.background}
@@ -54,6 +61,7 @@ export default function MainPage() {
                     height={100}
                     width={100}
                     isClickToPauseDisabled={true}
+                    style={{ pointerEvents: 'auto' }} // Dodanie stylu pointer-events
                 />
                 <Space h={"md"} />
                 <Title order={2}>About the App</Title>
@@ -64,6 +72,7 @@ export default function MainPage() {
                     Featuring high-resolution imagery from renowned space agencies, live updates on celestial events, and an interactive 3D model of the solar system, our app lets you navigate the stars like never before.
                 Discover distant galaxies, zoom in on planets, track satellites in real time, and learn about space phenomena through detailed articles and educational content. With intuitive controls and regular updates, this app transforms your device into a powerful window to the universe. Start your cosmic journey today!
                 </Text>
+                <Button onClick={()=>setOpened(true)}>Test quizu</Button>
                 <AddToCalendarOutlook date={new Date()} title={"Testowe wydarzenie"} />
                 <AddToCalendarIcs date={new Date()} title={"Testowe wydarzenie"} />
                 <AddToCalendarGoogle date={new Date()} title={"Testowe wydarzenie"} />
