@@ -41,17 +41,9 @@ export default function Planets() {
   );
 }
 
-function Sun() {
-  return (
-    <mesh>
-      <sphereGeometry args={[2.5, 32, 32]} />
-      <meshStandardMaterial color="#E1DC59" />
-    </mesh>
-  );
-}
-
-function Planet({ planet: { color, xRadius, zRadius, size, speed, offset } }) {
+function Sun({}) {
   const planetRef = useRef(null);
+
   const [obj, setObj] = useState(null);
 
   useEffect(() => {
@@ -67,10 +59,41 @@ function Planet({ planet: { color, xRadius, zRadius, size, speed, offset } }) {
       setObj(null);
     };
   }, []);
+  const size = 2.5;
+  return (
+    <mesh>
+      <sphereGeometry args={[2.5, 32, 32]} />
+      <meshStandardMaterial color="#E1DC59" />
+    </mesh>
+    // <>
+    //   {obj && (
+    //     <primitive ref={planetRef} object={obj} scale={[size, size, size]} />
+    //   )}
+    // </>
+  );
+}
+
+function Planet({ planet: { file, xRadius, zRadius, size, speed, offset } }) {
+  const planetRef = useRef(null);
+  const [obj, setObj] = useState(null);
+
+  useEffect(() => {
+    const gltfLoader = new GLTFLoader();
+
+    gltfLoader.load(file, (gltf) => {
+      const model = gltf.scene;
+      setObj(model);
+    });
+
+    return () => {
+      setObj(null);
+    };
+  }, [file]);
 
   useFrame(({ clock }) => {
     if (planetRef.current) {
       const t = clock.getElapsedTime() * speed + offset;
+
       const x = xRadius * 2 * Math.sin(t);
       const z = zRadius * 2 * Math.cos(t);
       planetRef.current.position.x = x;

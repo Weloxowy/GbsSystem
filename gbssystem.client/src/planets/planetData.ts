@@ -5,6 +5,8 @@ const randomColor = (): string =>
 
 type PlanetType = {
   id: number;
+  name: string;
+  file: string;
   color: string;
   xRadius: number;
   zRadius: number;
@@ -13,17 +15,40 @@ type PlanetType = {
   offset: number;
 };
 
+const planetNamesAndFiles = [
+  {
+    name: "Mercury",
+    file: "/1_merkury.glb",
+    size: 0.38 * 5,
+    speed: 47.87 / 100,
+  },
+  { name: "Venus", file: "/2_wenus.glb", size: 0.95 * 3, speed: 35.02 / 100 },
+  { name: "Earth", file: "/3_ziemia.glb", size: 1.0 * 3, speed: 29.78 / 100 },
+  { name: "Mars", file: "/4_mars.glb", size: 0.53 * 4, speed: 24.07 / 100 },
+  {
+    name: "Jupiter",
+    file: "/5_jowisz.glb",
+    size: 11.21 / 5,
+    speed: 13.07 / 100,
+  },
+  { name: "Saturn", file: "/6_saturn.glb", size: 9.45 / 5, speed: 9.69 / 100 },
+  { name: "Uranus", file: "/7_uran.glb", size: 4.01, speed: 6.81 / 100 },
+  { name: "Neptune", file: "/8_neptun.glb", size: 3.88, speed: 5.43 / 100 },
+];
 const planetData: PlanetType[] = [];
-const totalPlanets = 6;
+const totalPlanets = 8;
 
 for (let index = 0; index < totalPlanets; index++) {
+  const { name, file, size, speed } = planetNamesAndFiles[index];
   planetData.push({
-    id: index,
+    id: index + 1,
+    name,
+    file,
     color: randomColor(),
     xRadius: (index + 1.5) * 4,
     zRadius: (index + 1.5) * 2,
-    size: random(0.5, 1),
-    speed: random(0.1, 0.6),
+    size,
+    speed,
     offset: random(0, Math.PI * 2),
   });
 }
