@@ -9,6 +9,7 @@ import {
 import Root from "./routes/root";
 import ErrorPage from "./error-page.tsx";
 import {MantineProvider} from "@mantine/core";
+import {theme} from "./theme.tsx";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
 
 
 createRoot(document.getElementById('root')!).render(
-    <MantineProvider defaultColorScheme={"auto"}>
+    <MantineProvider defaultColorScheme={"auto"} theme={theme}>
   <StrictMode>
       <RouterProvider router={router} />
   </StrictMode>
