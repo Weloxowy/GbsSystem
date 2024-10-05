@@ -365,3 +365,6 @@ FodyWeavers.xsd
 /.idea/GbsSystem.iml
 /.idea/modules.xml
 /.idea/vcs.xml
+/GbsSystem.Server/.idea/.idea.GbsSystem.Server.dir/.idea/indexLayout.xml
+/GbsSystem.Server/.idea/.idea.GbsSystem.Server.dir/.idea/projectSettingsUpdater.xml
+/GbsSystem.Server/.idea/.idea.GbsSystem.Server.dir/.idea/workspace.xml
