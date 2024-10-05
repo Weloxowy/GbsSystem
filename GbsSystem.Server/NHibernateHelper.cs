@@ -1,3 +1,5 @@
+using GbsSystem.Server.Models.AspNetUsers;
+
 namespace GbsSystem.Server;
 
 ﻿using FluentNHibernate.Cfg;
@@ -24,17 +26,13 @@ public class NHibernateHelper
                     .Database(
                         MsSqlConfiguration.MsSql2012.ConnectionString(
                             "Server=localhost\\SQLEXPRESS;Database=Hackaton;Integrated Security=SSPI;Application Name=Hackaton;TrustServerCertificate=true;")
-                    ) //TODO NAZWA DLA BAZY DANYCH NA TEN MOMENT TO Hackaton 
-                    /* .Mappings(m =>
-                         m.FluentMappings.AddFromAssemblyOf<KlientEntity>()
-                     ) Przykład mapowania TODO NIE ZAPOMINAĆ O MAPOWANIACH KOLEDZY*/
-                    
+                    ) 
+                    .Mappings(m =>
+                         m.FluentMappings.AddFromAssemblyOf<AspNetUsers>()
+                     ) 
                     .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
                     .BuildSessionFactory();
-
-
             }
-
             return _sessionFactory;
         }
     }
