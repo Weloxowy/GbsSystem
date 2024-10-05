@@ -19,7 +19,6 @@ const router = createBrowserRouter([
     },
 ]);
 
-
 createRoot(document.getElementById('root')!).render(
     <MantineProvider defaultColorScheme={"auto"} theme={theme}>
   <StrictMode>

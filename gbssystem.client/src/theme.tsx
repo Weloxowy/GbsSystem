@@ -3,11 +3,11 @@
 
 export const theme = createTheme({
     components: {
-      Button : {
-          defaultProps: {
-              loaderProps: {type: "bars", size: 'xs'},
-          }
-      }
+        Button: {
+            defaultProps: {
+                loaderProps: {type: "bars", size: 'xs'},
+            }
+        }
     },
     focusRing: "auto",
     fontSmoothing: true,
@@ -23,12 +23,10 @@ export const theme = createTheme({
         lg: '1px 1px 3px rgba(0, 0, 0, .10)',
         xl: '5px 5px 3px rgba(0, 0, 0, .15)',
     },
-    /*
     headings: {
-        fontFamily: cabinet.style.fontFamily,
-        fontWeight: "700",
-        textWrap: "balance"
+        fontFamily: '"Press Start 2P", system-ui',
+        fontWeight: "400",
+        textWrap: "balance",
     },
-    fontFamily: satoshi.style.fontFamily,
-     */
+    fontFamily: '"Urbanist", system-ui',
 });
