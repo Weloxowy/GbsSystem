@@ -22,9 +22,9 @@ public class _001_CreateTable_AspNetUsers : Migration
             .WithColumn("LockoutEnd").AsDateTimeOffset().Nullable()
             .WithColumn("LockoutEnabled").AsBoolean().Nullable()
             .WithColumn("AccessFailedCount").AsInt32().Nullable()
-            .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.FirstName)).AsString().NotNullable()
-            .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.Lastname)).AsString().NotNullable()
-            .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.Birthday)).AsDate().NotNullable();
+            .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.FirstName)).AsString().Nullable()
+            .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.Lastname)).AsString().Nullable()
+            .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.Birthday)).AsDate().Nullable();
     }
     public override void Down()
     {
