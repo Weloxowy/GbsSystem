@@ -42,13 +42,13 @@ builder.Services.AddFluentMigratorCore() // Move FluentMigrator registration her
     .ConfigureRunner(c =>
     {
         c.AddSqlServer2016()
-            .WithGlobalConnectionString("Server=localhost\\TEW_SQLEXPRESS;Database=Hackaton;Integrated Security=SSPI;Application Name=Hackaton; TrustServerCertificate=true;")
+            .WithGlobalConnectionString("Server=localhost\\SQLEXPRESS;Database=Hackaton;Integrated Security=SSPI;Application Name=Hackaton; TrustServerCertificate=true;")
             .ScanIn(Assembly.GetExecutingAssembly()).For.All();
     })
     .AddLogging(config => config.AddFluentMigratorConsole());
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(
-        "Server=localhost\\TEW_SQLEXPRESS;Database=Hackaton;Integrated Security=SSPI;Application Name=Hackaton; TrustServerCertificate=true;"));
+        "Server=localhost\\SQLEXPRESS;Database=Hackaton;Integrated Security=SSPI;Application Name=Hackaton; TrustServerCertificate=true;"));
 
 builder.Services.AddIdentityApiEndpoints<AspNetUsers>()
     .AddEntityFrameworkStores<DataContext>();
