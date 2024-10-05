@@ -2,8 +2,7 @@ using FluentMigrator;
 
 namespace GbsSystem.Server.Persistence.Migrations;
 [Migration(003)] // Unique identifier for the migration
-public class _003_CreateTable
-{
+
     public class CreateUserClaimsTable : Migration
     {
         public override void Up()
@@ -21,4 +20,3 @@ public class _003_CreateTable
             Delete.Table("AspNetUserClaims");
         }
     }
-}
