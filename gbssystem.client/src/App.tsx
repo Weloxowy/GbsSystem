@@ -5,7 +5,7 @@ import Register from "./login/Register";
 import MainPage from "./mainPage/MainPage";
 import {  MantineProvider } from '@mantine/core';
 import LoginPage from "./routes/LoginPage/LoginPage.tsx";
-import Planets from "./planets/Planets.tsx";
+import Planets from "./planets/Planets.jsx";
 
 
 export default function App() {

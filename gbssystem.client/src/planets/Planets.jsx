@@ -1,22 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Canvas, useFrame, useThree, useLoader } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+
 import planetData from "./planetData";
 import backgroundImage from "./../assets/milkyway.jpg";
-//@ts-ignore
-
-type PlanetType = {
-  id: number;
-  color: string;
-  xRadius: number;
-  zRadius: number;
-  size: number;
-  speed: number;
-  offset: number;
-};
 
 export default function Planets() {
   return (
@@ -41,7 +30,7 @@ export default function Planets() {
           }}
         >
           <Sun />
-          {planetData.map((planet: PlanetType) => (
+          {planetData.map((planet) => (
             <Planet planet={planet} key={planet.id} />
           ))}
           <Lights />
@@ -61,45 +50,18 @@ function Sun() {
   );
 }
 
-type PlanetProps = {
-  planet: PlanetType;
-};
-
-function Planet({
-  planet: { color, xRadius, zRadius, size, speed, offset },
-}: PlanetProps) {
-  // const planetRef = useRef<THREE.Mesh>(null);
-  // const obj = useLoader(OBJLoader, '/Mars_planet_in_low_po_1005132338_refine.obj');
-
-  const planetRef = useRef<THREE.Mesh>(null);
-  const [obj, setObj] = useState<THREE.Object3D | null>(null);
+function Planet({ planet: { color, xRadius, zRadius, size, speed, offset } }) {
+  const planetRef = useRef(null);
+  const [obj, setObj] = useState(null);
 
   useEffect(() => {
-    const mtlLoader = new MTLLoader();
-    const objLoader = new OBJLoader();
+    const gltfLoader = new GLTFLoader();
 
-    mtlLoader.load(
-      "/Mars_planet_in_low_po_1005132338_refine.mtl",
-      (materials) => {
-        console.log("Loaded materials:", materials);
-        //@ts-ignore
-        materials.preload();
-        //@ts-ignore
-        const materialArray = materials.getAsArray();
-        console.log("Material array:", materialArray);
-
-        objLoader.setMaterials(materials);
-        //@ts-ignore
-        objLoader.load(
-          "/Mars_planet_in_low_po_1005132338_refine.obj",
-          //@ts-ignore
-          (loadedObj) => {
-            console.log("Loaded object:", loadedObj);
-            setObj(loadedObj);
-          }
-        );
-      }
-    );
+    gltfLoader.load("/planetatest.glb", (gltf) => {
+      console.log("Loaded GLB model:", gltf);
+      const model = gltf.scene;
+      setObj(model);
+    });
 
     return () => {
       setObj(null);
@@ -118,18 +80,9 @@ function Planet({
 
   return (
     <>
-      {/* <primitive ref={planetRef} object={obj} scale={[size, size, size]} />
-      <Ecliptic xRadius={xRadius} zRadius={zRadius} /> */}
-
-      {/* <mesh ref={planetRef} scale={[3, 3, 3]}>  */}
-      {/* <primitive ref={planetRef} object={obj} scale={[size, size, size]} /> */}
       {obj && (
         <primitive ref={planetRef} object={obj} scale={[size, size, size]} />
       )}
-
-      {/* <sphereGeometry args={[size, 50, 50]} /> */}
-      {/* <meshStandardMaterial color={color} /> */}
-      {/* </mesh> */}
       <Ecliptic xRadius={xRadius * 2} zRadius={zRadius * 2} />
     </>
   );
@@ -144,17 +97,12 @@ function Lights() {
   );
 }
 
-type EclipticProps = {
-  xRadius?: number;
-  zRadius?: number;
-};
-
-function Ecliptic({ xRadius = 3, zRadius = 3 }: EclipticProps) {
+function Ecliptic({ xRadius = 3, zRadius = 3 }) {
   const { scene } = useThree();
-  const lineRef = useRef<THREE.Line>();
+  const lineRef = useRef();
 
   useEffect(() => {
-    const points: THREE.Vector3[] = [];
+    const points = [];
     for (let index = 0; index < 64; index++) {
       const angle = (index / 64) * 2 * Math.PI;
       const x = xRadius * Math.cos(angle);
