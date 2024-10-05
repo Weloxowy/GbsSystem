@@ -1,4 +1,5 @@
 import { useRouteError } from "react-router-dom";
+import {Button} from "@mantine/core";
 
 export default function ErrorPage() {
     const error = useRouteError();
@@ -18,6 +19,7 @@ export default function ErrorPage() {
             <p>
                 <i>{error.statusText || error.message}</i>
             </p>
+                <Button>ddd</Button>
         </div>
 
     );
