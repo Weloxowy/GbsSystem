@@ -114,7 +114,7 @@ export default function LoginPage(props: PaperProps) {
 
             // Pomyślne logowanie - przekierowanie użytkownika do /Menu
 
-            navigate('/Menu');
+            navigate('/planets');
         } catch (error) {
             setErrorMessage('Login failed. Please check your credentials.');
         }
