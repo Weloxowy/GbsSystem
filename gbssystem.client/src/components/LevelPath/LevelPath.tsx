@@ -4,7 +4,7 @@ import { Modal, Button } from "@mantine/core";
 import classes from './LevelPath.module.css';
 
 interface LevelPathProps {
-    selectedPlanet: string; // Accepting the planet name as a string
+    selectedPlanet: string;
 }
 
 export default function LevelPath({ selectedPlanet }: LevelPathProps) {
@@ -15,8 +15,6 @@ export default function LevelPath({ selectedPlanet }: LevelPathProps) {
         setSelectedLevel(level);
         setQuizOpened(true);
     };
-
-    // Poziomy ułożone zgodnie z nowym układem
     const levelsRow1 = [1, 2, 3, 4];
     const levelsRow2 = [8, 7, 6, 5];
 
@@ -52,6 +50,7 @@ export default function LevelPath({ selectedPlanet }: LevelPathProps) {
                 </div>
             </div>
             <Modal
+                size={"70vw"}
                 opened={quizOpened}
                 onClose={() => setQuizOpened(false)}
                 title={`Poziom ${selectedLevel}`}
