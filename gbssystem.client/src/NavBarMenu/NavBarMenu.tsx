@@ -7,7 +7,7 @@ import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import LevelPath from "../components/LevelPath/LevelPath.tsx";
 
-export default function NavBarMenu({ name }: { name: string }) {
+export default function NavBarMenu({ name, onClose }: { name: string; onClose: () => void }) {
     const elements = [
         { name: "Type of planet", value: "telluric planet" },
         { name: "Distance from Sun", value: "108 million km" },
@@ -66,13 +66,30 @@ export default function NavBarMenu({ name }: { name: string }) {
                 </div>
                 <div className={classes.mid_top}>
                     <Title>{name}</Title>
+                    <button
+                        onClick={onClose}
+                        style={{
+                            cursor: "pointer",
+                            position: "absolute",
+                            top: 10,
+                            right: 10,
+                            background: "none",
+                            border: "none",
+                            fontSize: "24px",
+                            color: "white",
+                        }}
+                    >
+                        ✕
+                    </button>
                 </div>
                 <div className={classes.mid_down}>
                     <ScrollArea h={200} offsetScrollbars>
-                    <Text size={rem(24)}>
-                        Venus is the second planet from the Sun and the closest to Earth.
-                        It is known for its dense atmosphere, which is mainly composed of carbon dioxide, and extreme temperature conditions that can exceed 450°C.
-                        The planet has a very bright surface, making it visible from Earth as the "morning star" or "evening star." Venus has no natural satellites or rings.
+                        <Text size={rem(24)}>
+                            Venus is the second planet from the Sun and the closest to Earth.
+                            It is known for its dense atmosphere, which is mainly composed of carbon dioxide, and
+                            extreme temperature conditions that can exceed 450°C.
+                            The planet has a very bright surface, making it visible from Earth as the "morning star" or
+                            "evening star." Venus has no natural satellites or rings.
                     </Text>
                         <Table>
                             <Table.Thead>

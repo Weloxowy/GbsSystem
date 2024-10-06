@@ -14,6 +14,9 @@ export default function Planets() {
         setSelectedPlanet(planetName);
     };
 
+    const handleClose = () => {
+        setSelectedPlanet(null);
+    };
     return (
         <>
             <div
@@ -35,7 +38,7 @@ export default function Planets() {
                             zIndex: 1,
                         }}
                     >
-                        <NavBarMenu name={selectedPlanet} />
+                        <NavBarMenu name={selectedPlanet} onClose={handleClose} /> {/* Pass handleClose to NavBarMenu */}
                     </div>
                 )}
                 <Canvas

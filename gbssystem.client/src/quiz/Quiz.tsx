@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {Text} from "@mantine/core";
 import QuizQuestion from "./QuizQuestion.tsx";
 
-// Define the type for the question
 interface Question {
     id: string;
     question: string;
@@ -13,11 +12,9 @@ interface Question {
     }[];
 }
 
-// Component to fetch planet info and render quiz questions
 const Quiz: React.FC<{ onClose: () => void; selectedPlanet: string; level: number }> = ({ onClose, selectedPlanet, level }) => {
-    const [questions, setQuestions] = useState<Question[]>([]); // State to hold questions
+    const [questions, setQuestions] = useState<Question[]>([]);
 
-    // Function to fetch questions from the API
     const getPlanetInfo = async () => {
         try {
             const response = await fetch(`https://localhost:7098/api/Questions/QuestionsByPlanetAndLevel?name=${selectedPlanet}&level=${level}`, {
@@ -28,11 +25,9 @@ const Quiz: React.FC<{ onClose: () => void; selectedPlanet: string; level: numbe
                 }
             });
             if (!response.ok) {
-                throw new Error('Failed to fetch planet info'); // Error handling
+                throw new Error('Failed to fetch planet info');
             }
-            const data = await response.json(); // Parse the JSON response
-
-            // Map the data to the desired structure
+            const data = await response.json();
             const formattedQuestions: Question[] = data.map((item: any) => ({
                 id: item.id,
                 question: item.question,
@@ -44,28 +39,27 @@ const Quiz: React.FC<{ onClose: () => void; selectedPlanet: string; level: numbe
                 ],
             }));
 
-            setQuestions(formattedQuestions); // Store the formatted questions in state
+            setQuestions(formattedQuestions);
         } catch (error) {
             console.error('Failed to fetch planet info:', error);
         }
     };
 
-    // Fetch questions on component mount
     useEffect(() => {
         getPlanetInfo();
-    }, [selectedPlanet, level]); // Add dependencies to re-fetch if these change
+    }, [selectedPlanet, level]);
 
     // Handle the closing of the quiz (if needed)
     const handleClose = () => {
-        onClose(); // Call the onClose function passed from parent
+        onClose();
     };
 
     return (
         <>
             {questions.length > 0 ? (
-                <QuizQuestion questions={questions} onClose={handleClose} /> // Pass the questions to QuizQuestion
+                <QuizQuestion questions={questions} onClose={handleClose} />
             ) : (
-                <Text>Loading questions...</Text> // Loading state
+                <Text>Loading questions...</Text>
             )}
         </>
     );
