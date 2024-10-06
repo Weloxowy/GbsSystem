@@ -12,7 +12,7 @@ import Quiz from "./quiz/Quiz.tsx";
 export default function App() {
 
   return (
-    <MantineProvider theme={theme}>
+    <MantineProvider theme={theme} forceColorScheme={"dark"}>
       <BrowserRouter>
         <Routes>
         <Route path="/" element={<MainPage />}>

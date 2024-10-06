@@ -1,7 +1,6 @@
 import {Button, Text, Overlay, rem, Space, Title, Modal} from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import classes from "./MainPage.module.css";
-import backgroundImage from "../assets/Zdj_hackaton_1.jpeg";
 import Lottie from 'react-lottie';
 import animation from '../assets/scroll.json'
 import AddToCalendarOutlook from "../components/AddToCalendar/AddToCalendarOutlook.tsx";
@@ -9,6 +8,7 @@ import AddToCalendarIcs from "../components/AddToCalendar/AddToCalendarIcs.tsx";
 import AddToCalendarGoogle from "../components/AddToCalendar/AddToCalendarGoogle.tsx";
 import {useState} from "react";
 import Quiz from "../quiz/Quiz.tsx";
+import Planets from "../planets/Planets";
 export default function MainPage() {
     const navigation = useNavigate();
 
@@ -31,8 +31,9 @@ export default function MainPage() {
             {/* Tło na pełnym ekranie */}
             <div
                 className={classes.background}
-                style={{ backgroundImage: `url(${backgroundImage})` }}
+                /*style={{ backgroundImage: `url(${backgroundImage})` }}*/
             >
+                <Planets />
                 <Overlay color="#000" opacity={0.6} zIndex={0} blur={6} />
             </div>
 
