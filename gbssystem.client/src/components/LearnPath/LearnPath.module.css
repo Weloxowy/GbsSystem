@@ -1,0 +1,54 @@
+.App {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.pathContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4rem;
+    width: 100%;
+    max-width: 40vw;
+    justify-items: center;
+}
+
+.levelBtn {
+    width: 60px;
+    color:black;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.levelBtn:hover {
+    background-color: var(--mantine-color-orange-7);
+    color: white;
+}
+@media (max-width: 768px) {
+    .row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

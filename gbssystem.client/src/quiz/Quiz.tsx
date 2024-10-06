@@ -48,8 +48,6 @@ const Quiz: React.FC<{ onClose: () => void; selectedPlanet: string; level: numbe
     useEffect(() => {
         getPlanetInfo();
     }, [selectedPlanet, level]);
-
-    // Handle the closing of the quiz (if needed)
     const handleClose = () => {
         onClose();
     };
