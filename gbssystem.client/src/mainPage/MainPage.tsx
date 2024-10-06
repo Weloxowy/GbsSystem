@@ -40,7 +40,7 @@ export default function MainPage() {
 
             {/* Zawartość na pierwszym ekranie */}
             <div className={classes.pageContent}>
-                <Title order={1} size={rem(128)}>
+                <Title order={1} size={rem(128)} >
                     GBS System
                 </Title>
                 <Space h={"xl"} />
