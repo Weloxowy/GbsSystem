@@ -1,5 +1,7 @@
 ﻿import {createTheme} from "@mantine/core";
 //import {cabinet, satoshi} from "./fonts"
+// import './assets/Neuwelt_Inline_Regular.ttf';
+import './fonts.css'
 
 export const theme = createTheme({
     components: {
@@ -24,9 +26,11 @@ export const theme = createTheme({
         xl: '5px 5px 3px rgba(0, 0, 0, .15)',
     },
     headings: {
-        fontFamily: '"Press Start 2P", system-ui',
+        // fontFamily: '"Press Start 2P", system-ui',
+        fontFamily: 'NeuweltInline, sans-serif',
         fontWeight: "400",
         textWrap: "balance",
     },
     fontFamily: '"Urbanist", system-ui',
 });
+
