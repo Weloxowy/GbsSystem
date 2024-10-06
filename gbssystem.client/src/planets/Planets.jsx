@@ -8,14 +8,29 @@ import backgroundImage from "./../assets/milkyway.jpg";
 import NavBarMenu from "@/NavBarMenu/NavBarMenu.tsx";
 import UserInformation from "@/RightTopInformation/UserInformation.tsx"; // Importujemy komponent UserInformation
 
-// Suwak do kontrolowania prędkości orbit
 function SpeedSlider({ onSpeedChange }) {
-    const [speed, setSpeed] = useState(1); // Domyślna prędkość
+    const [speed, setSpeed] = useState(1); // Domyślna prędkość: suwak na środku (1x)
+
+    // Funkcja do zmiany prędkości, która upewnia się, że prędkość jest w zakresie 0.1 - 10
+    const updateSpeed = (newSpeed) => {
+        const clampedSpeed = Math.max(0.1, Math.min(newSpeed, 10)); // Ograniczamy prędkość między 0.1 a 10
+        setSpeed(clampedSpeed);
+        onSpeedChange(clampedSpeed); // Przekazujemy nową prędkość do rodzica
+    };
+
+    // Obsługa kliknięcia na minus (zmniejszenie prędkości o 0.1)
+    const handleMinusClick = () => {
+        updateSpeed(speed - 0.1);
+    };
+
+    // Obsługa kliknięcia na plus (zwiększenie prędkości o 0.1)
+    const handlePlusClick = () => {
+        updateSpeed(speed + 0.1);
+    };
 
     const handleChange = (event) => {
         const newSpeed = parseFloat(event.target.value);
-        setSpeed(newSpeed);
-        onSpeedChange(newSpeed); // Przekazujemy nową wartość prędkości do rodzica
+        updateSpeed(newSpeed);
     };
 
     return (
@@ -25,20 +40,50 @@ function SpeedSlider({ onSpeedChange }) {
                 right: 10,
                 top: "50%",
                 transform: "translateY(-50%)",
-                width: "30px",
-                height: "300px",
+                width: "60px",
+                height: "350px",
                 zIndex: 1000,
                 display: "flex",
-                justifyContent: "center",
+                flexDirection: "column",
+                justifyContent: "space-between",
                 alignItems: "center",
                 background: "rgba(255, 255, 255, 0.1)",
                 borderRadius: "10px",
+                padding: "10px",
             }}
         >
+            {/* Wyświetlanie aktualnej prędkości nad komponentem */}
+            <div
+                style={{
+                    color: "white",
+                    position: "absolute",
+                    top: "-40px", // Przesuwamy nad cały komponent
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                }}
+            >
+                {speed.toFixed(1)}x
+            </div>
+
+            {/* Klikalny plus */}
+            <button
+                onClick={handlePlusClick}
+                style={{
+                    background: "transparent",
+                    border: "none",
+                    color: "white",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                }}
+            >
+                +
+            </button>
+
+            {/* Suwak */}
             <input
                 type="range"
                 min="0.1"
-                max="5"
+                max="10"
                 step="0.1"
                 value={speed}
                 onChange={handleChange}
@@ -49,9 +94,26 @@ function SpeedSlider({ onSpeedChange }) {
                     background: "white",
                 }}
             />
+
+            {/* Klikalny minus */}
+            <button
+                onClick={handleMinusClick}
+                style={{
+                    background: "transparent",
+                    border: "none",
+                    color: "white",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                }}
+            >
+                -
+            </button>
         </div>
     );
 }
+
+
+
 
 export default function Planets() {
     const [selectedPlanet, setSelectedPlanet] = useState(null);
@@ -64,8 +126,10 @@ export default function Planets() {
     };
 
     const handleSpeedChange = (newSpeed) => {
+        // Mnożnik prędkości będzie odpowiadał wartości suwaka (od 0.1x do 10x)
         setOrbitSpeedMultiplier(newSpeed);
     };
+
 
     return (
         <>
