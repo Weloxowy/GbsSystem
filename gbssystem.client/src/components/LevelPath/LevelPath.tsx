@@ -3,11 +3,11 @@ import { useState } from "react";
 import { Modal, Button } from "@mantine/core";
 import classes from './LevelPath.module.css';
 
-interface PathProps {
-    levels: number[];
+interface LevelPathProps {
+    selectedPlanet: string; // Accepting the planet name as a string
 }
 
-export default function LevelPath() {
+export default function LevelPath({ selectedPlanet }: LevelPathProps) {
     const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
     const [quizOpened, setQuizOpened] = useState(false);
 
@@ -56,7 +56,7 @@ export default function LevelPath() {
                 onClose={() => setQuizOpened(false)}
                 title={`Poziom ${selectedLevel}`}
             >
-                {selectedLevel && <Quiz level={selectedLevel} />}
+                {selectedLevel && <Quiz level={selectedLevel} selectedPlanet={selectedPlanet} />}
             </Modal>
         </div>
     );
